@@ -1,5 +1,5 @@
 """
- EthioYield AI — Ethiopian Crop Yield Prediction
+🌾 EthioYield AI — Ethiopian Crop Yield Prediction
 Streamlit Web Application
 """
 
@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore')
 
 st.set_page_config(
     page_title="EthioYield AI",
-    page_icon="",  # Change to "logo.png" if you add a custom logo
+    page_icon="🌾",  # Change to "logo.png" if you add a custom logo
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -133,13 +133,17 @@ st.markdown("""
       border-radius: 6px !important;
   }
   
-  /* Success messages - stronger for photo background */
+  /* Success messages - darker green background */
   .stSuccess {
-      background-color: rgba(232, 245, 233, 0.95) !important;
-      border-left: 5px solid #7CB342 !important;
-      color: #1B5E20 !important;
+      background-color: rgba(45, 80, 22, 0.95) !important;
+      border-left: 5px solid #FFD700 !important;
+      color: #FFFFFF !important;
       backdrop-filter: blur(10px) !important;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
+  }
+  
+  .stSuccess h3 {
+      color: #FFFFFF !important;
   }
   
   /* Tabs - more opaque for photo background */
@@ -189,14 +193,30 @@ st.markdown("""
       text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
   }
   
-  /* Metric widgets - enhanced */
+  /* Metric widgets - enhanced with darker background */
   [data-testid="stMetric"] {
-      background: rgba(255, 255, 255, 0.9) !important;
+      background: rgba(45, 80, 22, 0.9) !important;
       padding: 1rem !important;
       border-radius: 8px !important;
-      border-left: 4px solid #7CB342 !important;
+      border-left: 4px solid #FFD700 !important;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
       backdrop-filter: blur(10px) !important;
+  }
+  
+  /* Metric labels and values - white text */
+  [data-testid="stMetric"] label {
+      color: #FFFFFF !important;
+      font-weight: 600 !important;
+  }
+  
+  [data-testid="stMetric"] [data-testid="stMetricValue"] {
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      font-size: 1.5rem !important;
+  }
+  
+  [data-testid="stMetric"] [data-testid="stMetricDelta"] {
+      color: #FFD700 !important;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -245,12 +265,12 @@ with st.sidebar:
     if os.path.exists(logo_path):
         st.image(logo_path, width=200)
     
-    st.markdown("##  EthioYield AI")
+    st.markdown("## 🌾 EthioYield AI")
     st.markdown("*Ethiopian Crop Yield Prediction*")
     st.divider()
     page = st.radio(
         "Navigate",
-        [" Home", " EDA", " Predict", " Model Performance", " About"],
+        ["🏠 Home", "📊 EDA", "🔮 Predict", "📈 Model Performance", "ℹ️ About"],
         label_visibility="collapsed"
     )
     st.divider()
@@ -262,13 +282,13 @@ with st.sidebar:
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: HOME
 # ══════════════════════════════════════════════════════════════════════════════
-if page == " Home":
+if page == "🏠 Home":
     # Optional: Display banner logo/photo if available
     banner_path = os.path.join(BASE_DIR, 'banner.png')
     if os.path.exists(banner_path):
         st.image(banner_path, use_container_width=True)
     
-    st.markdown('<p class="section-title"> EthioYield AI — Dashboard</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-title">🌾 EthioYield AI — Dashboard</p>', unsafe_allow_html=True)
     st.markdown("Machine learning-powered **crop yield prediction** for Ethiopian regional agriculture.")
 
     c1, c2, c3, c4 = st.columns(4)
@@ -286,7 +306,7 @@ if page == " Home":
     if df_raw is not None:
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown("####  Average Yield Trend by Crop")
+            st.markdown("#### 📈 Average Yield Trend by Crop")
             trend = df_raw.groupby(['year', 'crop_type'])['yield_kg_ha'].mean().reset_index()
             fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
             ax.set_facecolor('#FFFEF0')
@@ -302,7 +322,7 @@ if page == " Home":
             plt.tight_layout(); st.pyplot(fig); plt.close()
 
         with col2:
-            st.markdown("####  Average Yield by Region")
+            st.markdown("#### 🗺️ Average Yield by Region")
             reg = df_raw.groupby('region')['yield_kg_ha'].mean().sort_values()
             fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
             ax.set_facecolor('#FFFEF0')
@@ -319,8 +339,8 @@ if page == " Home":
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: EDA
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == " EDA":
-    st.markdown('<p class="section-title"> Exploratory Data Analysis</p>', unsafe_allow_html=True)
+elif page == "📊 EDA":
+    st.markdown('<p class="section-title">📊 Exploratory Data Analysis</p>', unsafe_allow_html=True)
 
     if df_raw is None:
         st.warning("Dataset not found. Place the Excel file in the app folder.")
@@ -389,8 +409,8 @@ elif page == " EDA":
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: PREDICT
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == " Predict":
-    st.markdown('<p class="section-title"> Predict Crop Yield</p>', unsafe_allow_html=True)
+elif page == "🔮 Predict":
+    st.markdown('<p class="section-title">🔮 Predict Crop Yield</p>', unsafe_allow_html=True)
     st.markdown("Fill in the details below to get an instant yield prediction.")
 
     col1, col2, col3 = st.columns(3)
@@ -409,7 +429,7 @@ elif page == " Predict":
 
     st.markdown("---")
 
-    if st.button(" Predict Yield", use_container_width=True):
+    if st.button("🚀 Predict Yield", use_container_width=True):
         # Build feature vector matching FEATURE_COLS
         region_enc_val = list(encodings['region_map'].values()).index(region) \
                          if region in encodings['region_map'].values() else 0
@@ -481,8 +501,8 @@ elif page == " Predict":
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: MODEL PERFORMANCE
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == " Model Performance":
-    st.markdown('<p class="section-title"> Model Performance</p>', unsafe_allow_html=True)
+elif page == "📈 Model Performance":
+    st.markdown('<p class="section-title">📈 Model Performance</p>', unsafe_allow_html=True)
 
     results_df = pd.DataFrame(metrics['test_results']).sort_values('RMSE')
 
@@ -518,7 +538,7 @@ elif page == " Model Performance":
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
     st.markdown("---")
-    st.markdown("####  Best Model Summary")
+    st.markdown("#### 📋 Best Model Summary")
     best = next(r for r in metrics['test_results'] if r['Model'] == metrics['best_model'])
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Model",  best['Model'])
@@ -529,23 +549,23 @@ elif page == " Model Performance":
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: ABOUT
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == " About":
-    st.markdown('<p class="section-title">About This Project</p>', unsafe_allow_html=True)
+elif page == "ℹ️ About":
+    st.markdown('<p class="section-title">ℹ️ About This Project</p>', unsafe_allow_html=True)
     st.markdown("""
-    ###  EthioYield AI
+    ### 🌾 EthioYield AI
 
     This application predicts **crop yield (kg/ha)** for Ethiopian regions using
     machine learning trained on historical agricultural data from **1996 to 2022**.
 
     ---
-    ####  Dataset
+    #### 📦 Dataset
     - **Source:** Ethiopian Agricultural Data (Etho-Agri Dataset Enhanced)
     - **Regions:** 10 Ethiopian regions
     - **Crops:** Teff, Barley, Wheat, Maize, Sorghum, Millet, Oats
     - **Features:** Area, production, lag yields, rolling averages, regional statistics
 
     ---
-    ####  Models Trained
+    #### 🤖 Models Trained
     | Model | Description |
     |-------|-------------|
     | Random Forest | Ensemble of 300 decision trees |
@@ -554,7 +574,7 @@ elif page == " About":
     | Voting Ensemble | Average of all three models |
 
     ---
-    ####  Key Features Used
+    #### ⚙️ Key Features Used
     - **Lag features** — yield from previous 1, 2, 3 years
     - **Rolling averages** — 2-year and 3-year smoothed yield
     - **Log transforms** — area and production (reduces skew)
@@ -562,7 +582,7 @@ elif page == " About":
     - **Temporal features** — year trend, decade dummies
 
     ---
-    ####  Evaluation Metrics
+    #### 📊 Evaluation Metrics
     - **RMSE** — Root Mean Square Error
     - **MAE** — Mean Absolute Error
     - **R²** — Coefficient of Determination
@@ -571,4 +591,3 @@ elif page == " About":
     ---
     *Built with Python · Scikit-learn · LightGBM · XGBoost · Streamlit*
     """)
-
