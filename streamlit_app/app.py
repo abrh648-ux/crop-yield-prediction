@@ -23,24 +23,138 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS ────────────────────────────────────────────────────────────────
+# ── Custom CSS — Agricultural Color Theme ─────────────────────────────────────
 st.markdown("""
 <style>
-  [data-testid="stSidebar"] { background-color: #1a1a2e; }
-  [data-testid="stSidebar"] * { color: #eaeaea !important; }
-  .metric-box {
-      background: linear-gradient(135deg, #16213e, #0f3460);
-      border-left: 4px solid #e94560;
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      margin-bottom: 0.5rem;
+  /* Agricultural Color Palette:
+     - Wheat Gold (#F4A460)
+     - Forest Green (#2D5016)
+     - Sky Blue (#87CEEB)
+     - Earth Brown (#8B4513)
+     - Sunshine Yellow (#FFD700)
+     - Fresh Crop (#7CB342)
+  */
+  
+  /* Main background - soft cream like wheat fields */
+  .main { background-color: #FFF8DC !important; }
+  
+  /* Sidebar - rich soil brown with green accent */
+  [data-testid="stSidebar"] { 
+      background: linear-gradient(180deg, #2D5016 0%, #1a3d0a 100%) !important;
   }
-  .metric-box h4 { color: #a8dadc; margin: 0; font-size: 0.8rem; }
-  .metric-box h2 { color: #ffffff; margin: 0.2rem 0 0; font-size: 1.5rem; font-weight: 700; }
+  [data-testid="stSidebar"] * { color: #F5F5DC !important; }
+  [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {
+      color: #FFD700 !important;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  /* Metric boxes - earthy with green gradient */
+  .metric-box {
+      background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
+      border-left: 5px solid #FFD700;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+  }
+  .metric-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+  .metric-box h4 { 
+      color: #FFF8DC; 
+      margin: 0; 
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+  }
+  .metric-box h2 { 
+      color: #FFFFFF; 
+      margin: 0.3rem 0 0; 
+      font-size: 1.8rem; 
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+  
+  /* Section titles - earth brown with golden underline */
   .section-title {
-      font-size: 1.5rem; font-weight: 700;
-      color: #0f3460; border-bottom: 3px solid #e94560;
-      padding-bottom: 0.3rem; margin-bottom: 1rem;
+      font-size: 1.8rem; 
+      font-weight: 700;
+      color: #2D5016;
+      border-bottom: 4px solid #F4A460;
+      padding-bottom: 0.5rem; 
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  }
+  
+  /* Buttons - vibrant crop green */
+  .stButton > button {
+      background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%) !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+      padding: 0.6rem 1.5rem !important;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
+      transition: all 0.3s !important;
+  }
+  .stButton > button:hover {
+      background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.25) !important;
+  }
+  
+  /* Radio buttons - wheat gold accent */
+  [data-testid="stSidebar"] .stRadio > label {
+      background-color: rgba(255, 215, 0, 0.1);
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      margin: 0.2rem 0;
+  }
+  
+  /* Input fields - light cream background */
+  .stNumberInput > div > div > input,
+  .stSelectbox > div > div > select,
+  .stSlider > div > div > div {
+      background-color: #FFFAF0 !important;
+      border: 2px solid #F4A460 !important;
+      border-radius: 6px !important;
+  }
+  
+  /* Success messages - fresh crop green */
+  .stSuccess {
+      background-color: #E8F5E9 !important;
+      border-left: 5px solid #7CB342 !important;
+      color: #1B5E20 !important;
+  }
+  
+  /* Tabs - earth tones */
+  .stTabs [data-baseweb="tab-list"] {
+      background-color: #F5DEB3;
+      border-radius: 8px;
+      padding: 0.5rem;
+  }
+  .stTabs [data-baseweb="tab"] {
+      color: #2D5016 !important;
+      font-weight: 600;
+  }
+  .stTabs [aria-selected="true"] {
+      background-color: #7CB342 !important;
+      color: white !important;
+      border-radius: 6px !important;
+  }
+  
+  /* Dataframe styling */
+  [data-testid="stDataFrame"] {
+      border: 2px solid #F4A460 !important;
+      border-radius: 8px !important;
+  }
+  
+  /* Divider - wheat gold */
+  hr {
+      border-color: #F4A460 !important;
+      border-width: 2px !important;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -123,22 +237,30 @@ if page == "🏠 Home":
         with col1:
             st.markdown("#### 📈 Average Yield Trend by Crop")
             trend = df_raw.groupby(['year', 'crop_type'])['yield_kg_ha'].mean().reset_index()
-            fig, ax = plt.subplots(figsize=(7, 4))
-            for crop in df_raw['crop_type'].dropna().unique():
+            fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
+            ax.set_facecolor('#FFFEF0')
+            # Agricultural color palette for crops
+            crop_colors = ['#7CB342', '#F4A460', '#8B4513', '#FFD700', '#2D5016', '#87CEEB', '#D2691E']
+            for i, crop in enumerate(df_raw['crop_type'].dropna().unique()):
                 sub = trend[trend['crop_type'] == crop]
-                ax.plot(sub['year'], sub['yield_kg_ha'], marker='o', markersize=3, label=crop)
-            ax.set_xlabel('Year'); ax.set_ylabel('Avg Yield (kg/ha)')
-            ax.legend(fontsize=7, ncol=2); ax.grid(alpha=0.3)
+                ax.plot(sub['year'], sub['yield_kg_ha'], marker='o', markersize=4, 
+                       label=crop, color=crop_colors[i % len(crop_colors)], linewidth=2)
+            ax.set_xlabel('Year', fontweight='bold', color='#2D5016'); 
+            ax.set_ylabel('Avg Yield (kg/ha)', fontweight='bold', color='#2D5016')
+            ax.legend(fontsize=7, ncol=2, framealpha=0.9); ax.grid(alpha=0.3, color='#F4A460')
             plt.tight_layout(); st.pyplot(fig); plt.close()
 
         with col2:
             st.markdown("#### 🗺️ Average Yield by Region")
             reg = df_raw.groupby('region')['yield_kg_ha'].mean().sort_values()
-            fig, ax = plt.subplots(figsize=(7, 4))
-            colors = plt.cm.Set2(np.linspace(0, 1, len(reg)))
-            bars = ax.barh(reg.index, reg.values, color=colors)
-            ax.bar_label(bars, fmt='%.0f', padding=3, fontsize=8)
-            ax.set_xlabel('Avg Yield (kg/ha)'); ax.grid(axis='x', alpha=0.3)
+            fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
+            ax.set_facecolor('#FFFEF0')
+            # Gradient from light green to dark green
+            colors = plt.cm.YlGn(np.linspace(0.3, 0.9, len(reg)))
+            bars = ax.barh(reg.index, reg.values, color=colors, edgecolor='#2D5016', linewidth=1.5)
+            ax.bar_label(bars, fmt='%.0f', padding=3, fontsize=8, color='#2D5016', fontweight='bold')
+            ax.set_xlabel('Avg Yield (kg/ha)', fontweight='bold', color='#2D5016')
+            ax.grid(axis='x', alpha=0.3, color='#F4A460')
             plt.tight_layout(); st.pyplot(fig); plt.close()
     else:
         st.info("Place `Etho-Agri Dataset_Enhanced.xlsx` in the app folder to see charts.")
@@ -160,34 +282,47 @@ elif page == "📊 EDA":
         p99 = df_raw.groupby('crop_type')['yield_kg_ha'].transform(lambda x: x.quantile(0.99))
         df_plot = df_raw[df_raw['yield_kg_ha'] <= p99]
         order = df_plot.groupby('crop_type')['yield_kg_ha'].median().sort_values(ascending=False).index.tolist()
-        fig, ax = plt.subplots(figsize=(11, 4))
+        fig, ax = plt.subplots(figsize=(11, 4), facecolor='#FFF8DC')
+        ax.set_facecolor('#FFFEF0')
+        crop_palette = ['#7CB342', '#F4A460', '#8B4513', '#FFD700', '#2D5016', '#87CEEB', '#D2691E', '#9ACD32']
         for i, crop in enumerate(order):
             data = df_plot[df_plot['crop_type'] == crop]['yield_kg_ha']
             ax.boxplot(data, positions=[i], widths=0.5, patch_artist=True,
-                       boxprops=dict(facecolor=plt.cm.Set2(i / 8), alpha=0.8),
-                       medianprops=dict(color='black', linewidth=2),
-                       flierprops=dict(marker='o', markersize=2, alpha=0.3))
-        ax.set_xticks(range(len(order))); ax.set_xticklabels(order)
-        ax.set_ylabel('Yield (kg/ha)'); ax.grid(axis='y', alpha=0.3)
+                       boxprops=dict(facecolor=crop_palette[i % len(crop_palette)], alpha=0.8, edgecolor='#2D5016', linewidth=1.5),
+                       medianprops=dict(color='#8B4513', linewidth=2.5),
+                       whiskerprops=dict(color='#2D5016', linewidth=1.5),
+                       capprops=dict(color='#2D5016', linewidth=1.5),
+                       flierprops=dict(marker='o', markersize=3, alpha=0.4, markerfacecolor='#F4A460'))
+        ax.set_xticks(range(len(order))); ax.set_xticklabels(order, color='#2D5016', fontweight='bold')
+        ax.set_ylabel('Yield (kg/ha)', fontweight='bold', color='#2D5016')
+        ax.grid(axis='y', alpha=0.3, color='#F4A460')
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
     with tab2:
         st.markdown("#### Average Yield — Region × Crop")
         pivot = df_raw.pivot_table(values='yield_kg_ha', index='region',
                                     columns='crop_type', aggfunc='mean').round(0)
-        fig, ax = plt.subplots(figsize=(12, 5))
+        fig, ax = plt.subplots(figsize=(12, 5), facecolor='#FFF8DC')
         sns.heatmap(pivot, annot=True, fmt='.0f', cmap='YlGn',
-                    linewidths=0.4, linecolor='white', ax=ax)
-        ax.set_xlabel('Crop'); ax.set_ylabel('Region')
+                    linewidths=0.8, linecolor='white', ax=ax,
+                    cbar_kws={'label': 'Yield (kg/ha)'})
+        ax.set_xlabel('Crop', fontweight='bold', color='#2D5016')
+        ax.set_ylabel('Region', fontweight='bold', color='#2D5016')
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
     with tab3:
         st.markdown("#### Total Production by Region")
         prod = df_raw.groupby(['region','crop_type'])['production_kg'].sum().unstack(fill_value=0).div(1e6)
-        fig, ax = plt.subplots(figsize=(12, 4))
-        prod.plot(kind='bar', stacked=True, ax=ax, colormap='Set2', edgecolor='white')
-        ax.set_ylabel('Production (Million kg)'); ax.legend(bbox_to_anchor=(1,1), fontsize=8)
-        plt.xticks(rotation=30, ha='right'); plt.tight_layout(); st.pyplot(fig); plt.close()
+        fig, ax = plt.subplots(figsize=(12, 4), facecolor='#FFF8DC')
+        ax.set_facecolor('#FFFEF0')
+        # Agricultural color map for stacked bars
+        crop_colors_stack = ['#7CB342', '#F4A460', '#FFD700', '#8B4513', '#2D5016', '#87CEEB', '#D2691E']
+        prod.plot(kind='bar', stacked=True, ax=ax, color=crop_colors_stack, edgecolor='white', linewidth=1.2)
+        ax.set_ylabel('Production (Million kg)', fontweight='bold', color='#2D5016')
+        ax.legend(bbox_to_anchor=(1,1), fontsize=8, framealpha=0.95)
+        ax.grid(axis='y', alpha=0.3, color='#F4A460')
+        plt.xticks(rotation=30, ha='right', color='#2D5016', fontweight='bold')
+        plt.tight_layout(); st.pyplot(fig); plt.close()
 
     with tab4:
         st.markdown("#### Feature Correlation Matrix")
@@ -195,9 +330,9 @@ elif page == "📊 EDA":
         cols = [c for c in cols if c in df_raw.columns]
         corr = df_raw[cols].replace([np.inf,-np.inf], np.nan).corr()
         mask = np.triu(np.ones_like(corr, dtype=bool))
-        fig, ax = plt.subplots(figsize=(8, 6))
-        sns.heatmap(corr, mask=mask, annot=True, fmt='.2f', cmap='coolwarm',
-                    center=0, linewidths=0.4, ax=ax)
+        fig, ax = plt.subplots(figsize=(8, 6), facecolor='#FFF8DC')
+        sns.heatmap(corr, mask=mask, annot=True, fmt='.2f', cmap='RdYlGn',
+                    center=0, linewidths=0.8, ax=ax, cbar_kws={'label': 'Correlation'})
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -281,12 +416,15 @@ elif page == "🔮 Predict":
 
         # Gauge-style bar
         st.markdown("#### How does this compare to historical yields?")
-        fig, ax = plt.subplots(figsize=(9, 2))
-        ax.barh(['Historical Min', 'Historical Mean', 'Prediction', 'Historical Max'],
+        fig, ax = plt.subplots(figsize=(9, 2), facecolor='#FFF8DC')
+        ax.set_facecolor('#FFFEF0')
+        bars = ax.barh(['Historical Min', 'Historical Mean', 'Prediction', 'Historical Max'],
                 [stats['yield_min'], stats['yield_mean'], prediction, stats['yield_max']],
-                color=['#e74c3c','#f39c12','#2ecc71','#3498db'])
-        ax.axvline(prediction, color='green', linewidth=2, linestyle='--')
-        ax.set_xlabel('Yield (kg/ha)')
+                color=['#D2691E','#F4A460','#7CB342','#FFD700'], edgecolor='#2D5016', linewidth=1.5)
+        ax.axvline(prediction, color='#2D5016', linewidth=3, linestyle='--', label='Your Prediction')
+        ax.set_xlabel('Yield (kg/ha)', fontweight='bold', color='#2D5016')
+        ax.legend()
+        ax.grid(axis='x', alpha=0.3, color='#F4A460')
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -304,26 +442,28 @@ elif page == "📈 Model Performance":
 
     with col1:
         st.markdown("#### RMSE Comparison")
-        fig, ax = plt.subplots(figsize=(7, 4))
-        colors = ['#2ecc71' if m == metrics['best_model'] else '#95a5a6'
+        fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
+        ax.set_facecolor('#FFFEF0')
+        colors = ['#7CB342' if m == metrics['best_model'] else '#D2B48C'
                   for m in results_df['Model']]
         bars = ax.barh(results_df['Model'], results_df['RMSE'],
-                       color=colors, edgecolor='white')
-        ax.bar_label(bars, fmt='%.0f', padding=3)
-        ax.set_xlabel('RMSE (kg/ha) — lower is better')
-        ax.invert_yaxis(); ax.grid(axis='x', alpha=0.3)
+                       color=colors, edgecolor='#2D5016', linewidth=1.5)
+        ax.bar_label(bars, fmt='%.0f', padding=3, color='#2D5016', fontweight='bold')
+        ax.set_xlabel('RMSE (kg/ha) — lower is better', fontweight='bold', color='#2D5016')
+        ax.invert_yaxis(); ax.grid(axis='x', alpha=0.3, color='#F4A460')
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
     with col2:
         st.markdown("#### R² Comparison")
-        fig, ax = plt.subplots(figsize=(7, 4))
-        colors2 = ['#2ecc71' if m == metrics['best_model'] else '#95a5a6'
+        fig, ax = plt.subplots(figsize=(7, 4), facecolor='#FFF8DC')
+        ax.set_facecolor('#FFFEF0')
+        colors2 = ['#FFD700' if m == metrics['best_model'] else '#D2B48C'
                    for m in results_df['Model']]
         bars2 = ax.barh(results_df['Model'], results_df['R2'],
-                        color=colors2, edgecolor='white')
-        ax.bar_label(bars2, fmt='%.4f', padding=3)
-        ax.set_xlabel('R² — higher is better')
-        ax.invert_yaxis(); ax.grid(axis='x', alpha=0.3)
+                        color=colors2, edgecolor='#2D5016', linewidth=1.5)
+        ax.bar_label(bars2, fmt='%.4f', padding=3, color='#2D5016', fontweight='bold')
+        ax.set_xlabel('R² — higher is better', fontweight='bold', color='#2D5016')
+        ax.invert_yaxis(); ax.grid(axis='x', alpha=0.3, color='#F4A460')
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
     st.markdown("---")
