@@ -1,0 +1,61 @@
+{
+  "best_model": "XGBoost",
+  "test_results": [
+    {
+      "Model": "XGBoost",
+      "RMSE": 220.2,
+      "MAE": 98.2,
+      "R2": 0.936,
+      "MAPE": 9.45
+    },
+    {
+      "Model": "Random Forest",
+      "RMSE": 1823.3,
+      "MAE": 598.8,
+      "R2": -3.3884,
+      "MAPE": 86.75
+    },
+    {
+      "Model": "Voting Ensemble",
+      "RMSE": 2114.2,
+      "MAE": 720.5,
+      "R2": -4.9004,
+      "MAPE": 50.15
+    },
+    {
+      "Model": "Tuned LightGBM",
+      "RMSE": 3900.8,
+      "MAE": 1612.2,
+      "R2": -19.0856,
+      "MAPE": 152.51
+    },
+    {
+      "Model": "Tuned LightGBM",
+      "RMSE": 3900.8,
+      "MAE": 1612.2,
+      "R2": -19.0856,
+      "MAPE": 152.51
+    },
+    {
+      "Model": "Tuned LightGBM",
+      "RMSE": 3900.8,
+      "MAE": 1612.2,
+      "R2": -19.0856,
+      "MAPE": 152.51
+    },
+    {
+      "Model": "Tuned LightGBM",
+      "RMSE": 3900.8,
+      "MAE": 1612.2,
+      "R2": -19.0856,
+      "MAPE": 152.51
+    },
+    {
+      "Model": "LightGBM",
+      "RMSE": 5969.9,
+      "MAE": 1967.1,
+      "R2": -46.0465,
+      "MAPE": 112.92
+    }
+  ]
+}

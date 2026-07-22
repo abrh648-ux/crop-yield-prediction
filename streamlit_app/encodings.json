@@ -1,0 +1,47 @@
+{
+  "region_map": {
+    "0": "Afar",
+    "1": "Amhara",
+    "2": "Benushangul Gumuz",
+    "3": "DIRE DAWA",
+    "4": "Gambela",
+    "5": "Harari",
+    "6": "Oromiya",
+    "7": "S.N.N.P.R",
+    "8": "Somalia",
+    "9": "Tigray"
+  },
+  "crop_map": {
+    "0": "Barely",
+    "1": "Maize",
+    "2": "Millet",
+    "3": "Oats",
+    "4": "Sorghum",
+    "5": "Teff",
+    "6": "Wheat"
+  },
+  "regions_list": [
+    "Afar",
+    "Amhara",
+    "Benushangul Gumuz",
+    "DIRE DAWA",
+    "Gambela",
+    "Harari",
+    "Oromiya",
+    "S.N.N.P.R",
+    "Somalia",
+    "Tigray"
+  ],
+  "crops_list": [
+    "Barely",
+    "Maize",
+    "Millet",
+    "Oats",
+    "Sorghum",
+    "Teff",
+    "Wheat"
+  ],
+  "year_min": 1996,
+  "year_max": 2022,
+  "split_year": 2018
+}
