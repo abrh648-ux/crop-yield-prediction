@@ -1,5 +1,5 @@
 """
- EthioYield AI — Ethiopian Crop Yield Prediction
+🌾 EthioYield AI — Ethiopian Crop Yield Prediction
 Streamlit Web Application
 """
 
@@ -12,19 +12,51 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import seaborn as sns
+import base64
 import warnings
 warnings.filterwarnings('ignore')
 
 # ── Page config ───────────────────────────────────────────────────────────────
+# You can use emoji (default) or path to image file for page_icon
+# To use custom image: save as 'logo.png' in streamlit_app folder, then use:
+# page_icon="logo.png" or page_icon=Image.open("logo.png")
+
 st.set_page_config(
     page_title="EthioYield AI",
-    page_icon="🌾",
+    page_icon="🌾",  # Change to "logo.png" if you add a custom logo
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS — Agricultural Color Theme ─────────────────────────────────────
-st.markdown("""
+# ── Custom CSS — Agricultural Color Theme with Background Image ──────────────
+# Load background image if it exists
+def get_base64_image(image_path):
+    """Convert image to base64 for embedding in CSS"""
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except:
+        return None
+
+background_path = os.path.join(BASE_DIR, 'background.jpg')
+bg_base64 = get_base64_image(background_path)
+
+# Build CSS with or without background image
+if bg_base64:
+    background_style = f"""
+  /* Main background with embedded image */
+  [data-testid="stAppViewContainer"] > .main {{
+      background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+                  url('data:image/jpeg;base64,{bg_base64}') center center / cover no-repeat fixed !important;
+  }}
+  """
+else:
+    background_style = """
+  /* Main background - soft cream (no image uploaded yet) */
+  .main { background-color: #FFF8DC !important; }
+  """
+
+st.markdown(f"""
 <style>
   /* Agricultural Color Palette:
      - Wheat Gold (#F4A460)
@@ -35,8 +67,7 @@ st.markdown("""
      - Fresh Crop (#7CB342)
   */
   
-  /* Main background - soft cream like wheat fields */
-  .main { background-color: #FFF8DC !important; }
+  {background_style}
   
   /* Sidebar - rich soil brown with green accent */
   [data-testid="stSidebar"] { 
@@ -48,61 +79,71 @@ st.markdown("""
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   }
   
-  /* Metric boxes - earthy with green gradient */
+  /* Metric boxes - darker, more opaque for photo background */
   .metric-box {
-      background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
+      background: linear-gradient(135deg, rgba(85, 139, 47, 0.95) 0%, rgba(56, 102, 24, 0.95) 100%);
       border-left: 5px solid #FFD700;
       border-radius: 12px;
       padding: 1.2rem 1.5rem;
       margin-bottom: 0.8rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      backdrop-filter: blur(10px);
       transition: transform 0.2s;
   }
   .metric-box:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
   }
   .metric-box h4 { 
-      color: #FFF8DC; 
+      color: #FFFFFF; 
       margin: 0; 
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
   }
   .metric-box h2 { 
       color: #FFFFFF; 
       margin: 0.3rem 0 0; 
       font-size: 1.8rem; 
       font-weight: 700;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   }
   
-  /* Section titles - earth brown with golden underline */
+  /* Section titles - stronger shadow for photo background */
   .section-title {
       font-size: 1.8rem; 
       font-weight: 700;
-      color: #2D5016;
-      border-bottom: 4px solid #F4A460;
-      padding-bottom: 0.5rem; 
+      color: #1a3d0a;
+      background: rgba(255, 255, 255, 0.9);
+      border-left: 6px solid #558B2F;
+      border-bottom: 3px solid #F4A460;
+      padding: 0.8rem 1.2rem; 
       margin-bottom: 1.5rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      border-radius: 6px;
   }
   
-  /* Buttons - vibrant crop green */
+  /* Buttons - more opaque and vibrant */
   .stButton > button {
-      background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%) !important;
+      background: linear-gradient(135deg, rgba(124, 179, 66, 0.95) 0%, rgba(85, 139, 47, 0.95) 100%) !important;
       color: white !important;
-      border: none !important;
-      border-radius: 8px !important;
-      font-weight: 600 !important;
-      padding: 0.6rem 1.5rem !important;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
+      border: 2px solid rgba(255, 215, 0, 0.6) !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 1.05rem !important;
+      padding: 0.7rem 1.8rem !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+      backdrop-filter: blur(10px) !important;
       transition: all 0.3s !important;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
   }
   .stButton > button:hover {
-      background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%) !important;
-      transform: translateY(-2px) !important;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.25) !important;
+      background: linear-gradient(135deg, rgba(139, 195, 74, 0.98) 0%, rgba(104, 159, 56, 0.98) 100%) !important;
+      transform: translateY(-3px) scale(1.02) !important;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.35) !important;
+      border-color: rgba(255, 215, 0, 0.9) !important;
   }
   
   /* Radio buttons - wheat gold accent */
@@ -122,39 +163,70 @@ st.markdown("""
       border-radius: 6px !important;
   }
   
-  /* Success messages - fresh crop green */
+  /* Success messages - stronger for photo background */
   .stSuccess {
-      background-color: #E8F5E9 !important;
+      background-color: rgba(232, 245, 233, 0.95) !important;
       border-left: 5px solid #7CB342 !important;
       color: #1B5E20 !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
   }
   
-  /* Tabs - earth tones */
+  /* Tabs - more opaque for photo background */
   .stTabs [data-baseweb="tab-list"] {
-      background-color: #F5DEB3;
-      border-radius: 8px;
-      padding: 0.5rem;
+      background-color: rgba(245, 222, 179, 0.95);
+      border-radius: 10px;
+      padding: 0.6rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
   }
   .stTabs [data-baseweb="tab"] {
       color: #2D5016 !important;
-      font-weight: 600;
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
   }
   .stTabs [aria-selected="true"] {
-      background-color: #7CB342 !important;
+      background-color: rgba(124, 179, 66, 0.95) !important;
       color: white !important;
-      border-radius: 6px !important;
-  }
-  
-  /* Dataframe styling */
-  [data-testid="stDataFrame"] {
-      border: 2px solid #F4A460 !important;
       border-radius: 8px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
   }
   
-  /* Divider - wheat gold */
-  hr {
-      border-color: #F4A460 !important;
-      border-width: 2px !important;
+  /* Dataframe styling - opaque background */
+  [data-testid="stDataFrame"] {
+      border: 3px solid #558B2F !important;
+      border-radius: 10px !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+      backdrop-filter: blur(10px) !important;
+  }
+  
+  /* Input fields - opaque with stronger borders */
+  .stNumberInput > div > div > input,
+  .stSelectbox > div > div > select,
+  .stSlider {
+      background-color: rgba(255, 250, 240, 0.95) !important;
+      border: 2px solid #558B2F !important;
+      border-radius: 8px !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
+  }
+  
+  /* Markdown containers - semi-transparent background */
+  [data-testid="stMarkdownContainer"] p,
+  [data-testid="stMarkdownContainer"] h4,
+  [data-testid="stMarkdownContainer"] h3 {
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+  }
+  
+  /* Metric widgets - enhanced */
+  [data-testid="stMetric"] {
+      background: rgba(255, 255, 255, 0.9) !important;
+      padding: 1rem !important;
+      border-radius: 8px !important;
+      border-left: 4px solid #7CB342 !important;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
+      backdrop-filter: blur(10px) !important;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -199,12 +271,17 @@ CROPS   = encodings['crops_list']
 
 # ── Sidebar navigation ────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("##  EthioYield AI")
+    # Optional: Display logo image if available
+    logo_path = os.path.join(BASE_DIR, 'logo.png')
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=200)
+    
+    st.markdown("## 🌾 EthioYield AI")
     st.markdown("*Ethiopian Crop Yield Prediction*")
     st.divider()
     page = st.radio(
         "Navigate",
-        [" Home", "EDA", "🔮 Predict", "📈 Model Performance", "ℹ️ About"],
+        ["🏠 Home", "📊 EDA", "🔮 Predict", "📈 Model Performance", "ℹ️ About"],
         label_visibility="collapsed"
     )
     st.divider()
@@ -217,6 +294,11 @@ with st.sidebar:
 # PAGE: HOME
 # ══════════════════════════════════════════════════════════════════════════════
 if page == "🏠 Home":
+    # Optional: Display banner logo/photo if available
+    banner_path = os.path.join(BASE_DIR, 'banner.png')
+    if os.path.exists(banner_path):
+        st.image(banner_path, use_container_width=True)
+    
     st.markdown('<p class="section-title">🌾 EthioYield AI — Dashboard</p>', unsafe_allow_html=True)
     st.markdown("Machine learning-powered **crop yield prediction** for Ethiopian regional agriculture.")
 
