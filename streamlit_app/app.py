@@ -277,7 +277,7 @@ with st.sidebar:
     if os.path.exists(logo_path):
         st.image(logo_path, width=200)
     
-    st.markdown("##  EthioYield AI")
+    st.markdown("##  ")
     st.markdown("*Ethiopian Crop Yield Prediction*")
     st.divider()
     page = st.radio(
