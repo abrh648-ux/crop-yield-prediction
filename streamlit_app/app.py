@@ -43,10 +43,13 @@ st.markdown("""
   [data-testid="stSidebar"] { 
       background: linear-gradient(180deg, #2D5016 0%, #1a3d0a 100%) !important;
   }
-  [data-testid="stSidebar"] * { color: #E8DCC4 !important; }
+  [data-testid="stSidebar"] * { 
+      color: #FFFFFF !important; 
+      text-shadow: none !important;
+  }
   [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {
-      color: #F5E6D3 !important;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      color: #FFFFFF !important;
+      text-shadow: none !important;
   }
   
   /* Metric boxes - darker, more opaque for photo background */
@@ -65,19 +68,21 @@ st.markdown("""
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
   }
   .metric-box h4 { 
-      color: #E8DCC4; 
+      color: #FFFFFF; 
       margin: 0; 
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      text-shadow: none;
+      opacity: 1;
   }
   .metric-box h2 { 
-      color: #F5E6D3; 
+      color: #FFFFFF; 
       margin: 0.3rem 0 0; 
       font-size: 1.8rem; 
       font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: none;
+      opacity: 1;
   }
   
   /* Section titles - stronger shadow for photo background */
@@ -90,7 +95,7 @@ st.markdown("""
       border-bottom: 3px solid #F4A460;
       padding: 0.8rem 1.2rem; 
       margin-bottom: 1.5rem;
-      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      text-shadow: none;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
       border-radius: 6px;
   }
@@ -107,7 +112,7 @@ st.markdown("""
       box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
       backdrop-filter: blur(10px) !important;
       transition: all 0.3s !important;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
+      text-shadow: none !important;
   }
   .stButton > button:hover {
       background: linear-gradient(135deg, rgba(139, 195, 74, 0.98) 0%, rgba(104, 159, 56, 0.98) 100%) !important;
@@ -137,13 +142,15 @@ st.markdown("""
   .stSuccess {
       background-color: rgba(45, 80, 22, 0.95) !important;
       border-left: 5px solid #FFD700 !important;
-      color: #E8DCC4 !important;
+      color: #FFFFFF !important;
       backdrop-filter: blur(10px) !important;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
   }
   
   .stSuccess h3 {
-      color: #F5E6D3 !important;
+      color: #FFFFFF !important;
+      text-shadow: none !important;
+      opacity: 1 !important;
   }
   
   /* Tabs - more opaque for photo background */
@@ -186,11 +193,11 @@ st.markdown("""
       box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
   }
   
-  /* Markdown containers - semi-transparent background */
+  /* Markdown containers - no effects */
   [data-testid="stMarkdownContainer"] p,
   [data-testid="stMarkdownContainer"] h4,
   [data-testid="stMarkdownContainer"] h3 {
-      text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+      text-shadow: none !important;
   }
   
   /* Metric widgets - enhanced with darker background */
@@ -203,20 +210,25 @@ st.markdown("""
       backdrop-filter: blur(10px) !important;
   }
   
-  /* Metric labels and values - soft beige text */
+  /* Metric labels and values - pure white text, no effects */
   [data-testid="stMetric"] label {
-      color: #E8DCC4 !important;
+      color: #FFFFFF !important;
       font-weight: 600 !important;
+      text-shadow: none !important;
+      opacity: 1 !important;
   }
   
   [data-testid="stMetric"] [data-testid="stMetricValue"] {
-      color: #F5E6D3 !important;
+      color: #FFFFFF !important;
       font-weight: 700 !important;
       font-size: 1.5rem !important;
+      text-shadow: none !important;
+      opacity: 1 !important;
   }
   
   [data-testid="stMetric"] [data-testid="stMetricDelta"] {
       color: #FFD700 !important;
+      text-shadow: none !important;
   }
 </style>
 """, unsafe_allow_html=True)
