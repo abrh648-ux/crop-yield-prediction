@@ -1,5 +1,5 @@
 """
- EthioYield AI — Ethiopian Crop Yield Prediction
+  — Ethiopian Crop Yield Prediction
 Streamlit Web Application
 """
 
