@@ -278,7 +278,7 @@ with st.sidebar:
         st.image(logo_path, width=200)
     
     st.markdown("##  ")
-    st.markdown("*Ethiopian Crop Yield Prediction*")
+    st.markdown("##*Ethiopian Crop Yield Prediction*")
     st.divider()
     page = st.radio(
         "Navigate",
