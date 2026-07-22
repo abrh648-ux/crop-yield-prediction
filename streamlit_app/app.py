@@ -22,7 +22,7 @@ warnings.filterwarnings('ignore')
 # page_icon="logo.png" or page_icon=Image.open("logo.png")
 
 st.set_page_config(
-    page_title="EthioYield AI",
+    page_title=" ",
     page_icon="",  # Change to "logo.png" if you add a custom logo
     layout="wide",
     initial_sidebar_state="expanded",
