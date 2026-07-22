@@ -28,6 +28,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Load artifacts FIRST (needed for background image) ──────────────────────
+BASE_DIR = os.path.dirname(__file__)
+
 # ── Custom CSS — Agricultural Color Theme with Background Image ──────────────
 # Load background image if it exists
 def get_base64_image(image_path):
@@ -231,8 +234,7 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Load artifacts ────────────────────────────────────────────────────────────
-BASE_DIR = os.path.dirname(__file__)
+# ── Load artifacts (continued) ───────────────────────────────────────────────
 
 @st.cache_resource
 def load_model():
