@@ -300,7 +300,7 @@ if page == " Home":
     if os.path.exists(banner_path):
         st.image(banner_path, use_container_width=True)
     
-    st.markdown('<p class="section-title"> EthioYield AI — Dashboard</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-title"> EthioYield prediction — Dashboard</p>', unsafe_allow_html=True)
     st.markdown("Machine learning-powered **crop yield prediction** for Ethiopian regional agriculture.")
 
     c1, c2, c3, c4 = st.columns(4)
