@@ -35,12 +35,14 @@ BASE_DIR = os.path.dirname(__file__)
 def load_background_image():
     """Load background image if it exists"""
     bg_path = os.path.join(BASE_DIR, 'background.jpg')
+    # Debug: Show if file exists
     if os.path.exists(bg_path):
         try:
             with open(bg_path, "rb") as f:
                 data = base64.b64encode(f.read()).decode()
             return f"data:image/jpeg;base64,{data}"
-        except:
+        except Exception as e:
+            # Silent fail - just show cream background
             return None
     return None
 
@@ -50,9 +52,13 @@ bg_image_data = load_background_image()
 # Build background CSS
 if bg_image_data:
     bg_css = f"""
-  [data-testid="stAppViewContainer"] > .main {{
+  .stApp {{
       background: linear-gradient(rgba(255, 248, 220, 0.85), rgba(255, 248, 220, 0.85)),
-                  url({bg_image_data}) center/cover no-repeat fixed !important;
+                  url('{bg_image_data}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
   }}
     """
 else:
