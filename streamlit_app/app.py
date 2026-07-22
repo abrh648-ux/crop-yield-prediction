@@ -31,45 +31,13 @@ st.set_page_config(
 # ── Load artifacts ───────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(__file__)
 
-# ── Background Image Setup (Simple & Safe) ───────────────────────────────────
-def load_background_image():
-    """Load background image if it exists"""
-    bg_path = os.path.join(BASE_DIR, 'background.jpg')
-    # Debug: Show if file exists
-    if os.path.exists(bg_path):
-        try:
-            with open(bg_path, "rb") as f:
-                data = base64.b64encode(f.read()).decode()
-            return f"data:image/jpeg;base64,{data}"
-        except Exception as e:
-            # Silent fail - just show cream background
-            return None
-    return None
-
-bg_image_data = load_background_image()
-
 # ── Custom CSS — Agricultural Color Theme ────────────────────────────────────
-# Build background CSS
-if bg_image_data:
-    bg_css = f"""
-  .stApp {{
-      background: linear-gradient(rgba(255, 248, 220, 0.85), rgba(255, 248, 220, 0.85)),
-                  url('{bg_image_data}');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-  }}
-    """
-else:
-    bg_css = """
-  .main { background-color: #FFF8DC !important; }
-    """
-
-st.markdown(f"""
+st.markdown("""
 <style>
   /* Agricultural Color Theme */
-  {bg_css}
+  
+  /* Main background - soft cream like wheat fields */
+  .main { background-color: #FFF8DC !important; }
   
   /* Sidebar - rich soil brown with green accent */
   [data-testid="stSidebar"] { 
