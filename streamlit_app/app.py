@@ -18,7 +18,7 @@ warnings.filterwarnings('ignore')
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="EthioYield AI",
-    page_icon="🌾",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -339,7 +339,7 @@ elif page == " EDA":
 # PAGE: PREDICT
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == " Predict":
-    st.markdown('<p class="section-title">🔮 Predict Crop Yield</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-title"> Predict Crop Yield</p>', unsafe_allow_html=True)
     st.markdown("Fill in the details below to get an instant yield prediction.")
 
     col1, col2, col3 = st.columns(3)
@@ -406,7 +406,7 @@ elif page == " Predict":
         prediction = model.predict(input_df)[0]
         prediction = max(0, prediction)
 
-        st.success(f"### 🌾 Predicted Yield: **{prediction:,.0f} kg/ha**")
+        st.success(f"###  Predicted Yield: **{prediction:,.0f} kg/ha**")
 
         c1, c2, c3 = st.columns(3)
         c1.metric("Predicted Yield", f"{prediction:,.0f} kg/ha")
